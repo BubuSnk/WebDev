@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div id="maincontainer"></div>
+        <script>
+            // Create header element
+            const header = document.createElement("h1");
+            header.innerHTML = "<b>Exercise04: JavaScript&DOM</b>";
+            header.style.fontSize = "30px";
+
+            // Add header element to main container
+            const maincontainer = document.getElementById("maincontainer");
+            maincontainer.appendChild(header);
+
+            //time button
+            var button = document.createElement("button");
+            button.innerText = "Click me to display Date and Time";
+            maincontainer.appendChild(button);
+            let pos = true;
+            
+            var worker = new Worker("worker.js");
+            button.addEventListener("click", function() {
+                
+                if (pos == true){
+                    worker.postMessage("start");
+                    button.style.position = "fixed";
+                    button.style.top = 0;
+                    button.style.right= 0;
+                    pos = false
+                }
+                else{
+                    button.style.position = "static";
+                    worker.postMessage("stop");
+                    pos = true;
+                }
+            });
+           
+            worker.onmessage = function(event) {
+            button.innerHTML = event.data.split(",")[0];
+            button.style.backgroundColor = event.data.split(",")[1];
+            button.style.color = event.data.split(",")[2]
+            };
+
+            // Add main text to main container
+            const maintext = document.createElement("div");
+            maintext.innerHTML = "<br><br><u>Personal Info</u>";
+            maintext.style.color = "pink"
+            maintext.style.display = "inline"
+            maintext.style.cursor = "pointer"
+            maintext.style.lineHeight = "25px"
+            maincontainer.appendChild(maintext);
+
+            const hiddentext = document.createElement("p");
+            hiddentext.innerHTML = "&emsp;&emsp;&#x2022; Suppawit Prasurat, ID: 64011289<br>&emsp;&emsp;&#x2022; Subject:web application development<br>&emsp;&emsp;&#x2022; Semester:2";
+            hiddentext.style.display = "none"
+            maincontainer.appendChild(hiddentext);
+
+            //click event show text
+            maintext.addEventListener("click", () => {
+                if (hiddentext.style.display === "none") {
+                    hiddentext.style.display = "block";
+                } else {
+                    hiddentext.style.display = "none";
+                }
+            });
+
+            //cursor then change bg
+            maintext.addEventListener("mouseenter", () => {
+                maintext.style.backgroundColor = "yellow";
+                maintext.style.color = "blue"
+                maintext.style.display = "inline";
+            });
+            maintext.addEventListener("mouseleave", () => {
+                maintext.style.backgroundColor = "white";
+                maintext.style.color = "pink"
+            });
+            
+
+            //snap h2
+            const snap = document.createElement("h2");
+            snap.innerHTML = "<b>Snapshots</b>";
+            snap.style.fontSize = "30px";
+            maincontainer.appendChild(snap);
+
+
+            //firework
+            const firework = document.createElement("p");
+            firework.innerHTML = "&emsp;&emsp;";
+            firework.style.cursor = "pointer";
+            firework.style.color = "blue";
+            firework.style.display = "inline";
+
+            const bullet = document.createElement("span");
+            bullet.innerHTML = "&#x2022;";
+            bullet.style.color = "black";
+
+            firework.appendChild(bullet);
+            firework.innerHTML += " <u>Fireworks</u><br>";
+            maincontainer.appendChild(firework);
+
+            //crest
+            const crest = document.createElement("p");
+            crest.innerHTML = "&emsp;&emsp;";
+            crest.style.cursor = "pointer";
+            crest.style.color = "blue";
+            crest.style.display = "inline";
+
+            const bullet1 = document.createElement("span");
+            bullet1.innerHTML = "&#x2022;";
+            bullet1.style.color = "black";
+
+            crest.appendChild(bullet1);
+            crest.innerHTML += " <u>Crest</u><br>";
+            maincontainer.appendChild(crest);
+
+            //action
+            const action = document.createElement("p");
+            action.innerHTML = "&emsp;&emsp;";
+            action.style.cursor = "pointer";
+            action.style.color = "blue";
+            action.style.display = "inline";
+
+            const bullet2 = document.createElement("span");
+            bullet2.innerHTML = "&#x2022;";
+            bullet2.style.color = "black";
+
+            action.appendChild(bullet2);
+            action.innerHTML += " <u>Action</u><br>";
+            maincontainer.appendChild(action);
+
+            //buffalo
+            const buffalo = document.createElement("p");
+            buffalo.innerHTML = "&emsp;&emsp;";
+            buffalo.style.cursor = "pointer";
+            buffalo.style.color = "blue";
+            buffalo.style.display = "inline";
+
+            const bullet3 = document.createElement("span");
+            bullet3.innerHTML = "&#x2022;";
+            bullet3.style.color = "black";
+
+            buffalo.appendChild(bullet3);
+            buffalo.innerHTML += " <u>Buffalo</u><br><br>";
+            maincontainer.appendChild(buffalo);
+
+            //click to display img
+            firework.addEventListener("click", () => {           
+                currentImage.style.display = "none";
+                image1.style.display = "block";
+                currentImage = image1;               
+            });
+
+            crest.addEventListener("click", () => {
+                currentImage.style.display = "none";
+                image2.style.display = "block";
+                currentImage = image2;
+            });
+
+            action.addEventListener("click", () => {
+                currentImage.style.display = "none";
+                image3.style.display = "block";
+                currentImage = image3;
+            });
+
+            buffalo.addEventListener("click", () => {
+                currentImage.style.display = "none";
+                image4.style.display = "block";
+                currentImage = image4;
+            });
+
+            //img
+            let currentImage = document.createElement("img");
+            currentImage.src = "https://www.sarakadee.com/blog/oneton/wp-content/uploads/2017/12/cat-cute-e1533862828469.jpg";
+            currentImage.style.maxWidth = "400px";
+            maincontainer.appendChild(currentImage);
+
+            const image1 = document.createElement("img");
+            image1.src = "https://ichef.bbci.co.uk/images/ic/480xn/p05lqc4f.jpg";
+            image1.style.display = "none";
+            image1.style.maxWidth = "400px";
+            maincontainer.appendChild(image1);
+
+            const image2 = document.createElement("img");
+            image2.src = "https://thumbs.dreamstime.com/z/premium-quality-label-23847469.jpg";
+            image2.style.display = "none";
+            image2.style.maxWidth = "400px";
+            maincontainer.appendChild(image2);
+
+            const image3 = document.createElement("img");
+            image3.src = "https://www.cleveland.com/resizer/kRcK0h3JGa7R9O4bbsIhV84HaQQ=/700x0/smart/advancelocal-adapter-image-uploads.s3.amazonaws.com/expo.advance.net/img/544bef1618/width2048/102_thematrix1852645.jpeg";
+            image3.style.display = "none";
+            image3.style.maxWidth = "400px";
+            maincontainer.appendChild(image3);
+            
+            const image4 = document.createElement("img");
+            image4.src = "https://a-z-animals.com/media/2021/07/Heaviest-Animals_-Bovini.jpg";
+            image4.style.display = "none";
+            image4.style.maxWidth = "400px";
+            maincontainer.appendChild(image4);
+            
+        </script>
+    </body>
+</html>
